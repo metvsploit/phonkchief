@@ -1,0 +1,79 @@
+﻿@model PhonkChief.Domain.ViewModels.LoopsViewModel;
+
+
+
+<form id="myform" asp-antiforgery="true" asp-controller="Loops"  asp-action="Loops" method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <button type="submit" class="btn btn-secondary">Применить</button>
+        </div>
+        <select name="Option" class="custom-select" id="inputGroupSelect01">
+            <option selected>Категория...</option>
+            <option value="0">Все</option>
+            <option value="1">Horror</option>
+            <option value="2">Memphis</option>
+            <option value="3">Phonk</option>
+        </select>
+     </div>
+
+@if(Model.LoopsList.Count > 0)
+    {
+        @for (int i = 0; i < Model.LoopsList.Count; i++)
+        {
+            <div class="card text-white bg-dark mb-3" style="max-width: 27rem;">
+                <div class="card-header">  <img style='width:40px; height:40px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.LoopsList[i].Avatar))" />
+                    <a href="/Profile/@Model.LoopsList[i].NickName">@Model.LoopsList[i].NickName</a> 
+                    <a style="float:right" href="data:audio/wav;base64,@(Convert.ToBase64String(Model.LoopsList[i].File))"  download="-@Model.LoopsList[i].Name-.wav"
+         class="page-link">Скачать</a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.LoopsList[i].Name</h5>
+                    <div class="container"><div class="row">
+                            <div class="col-lg-6 col-lg-offset-3">
+                                <audio preload="auto" controls controlsList="nodownload" onplay="other_pause([@i])">
+                                    <source src="data:audio/wav;base64,@(Convert.ToBase64String(Model.LoopsList[i].File))"  />
+                                </audio>
+                            </div>
+                        </div></div>
+                </div>
+                <div class="card-footer">
+                    <p>Категория: @Model.LoopsList[i].Category </p>
+                    <p>BPM: @Model.LoopsList[i].Bpm</p>
+                </div>
+            </div>
+            <br />
+        }
+    }
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+   
+    @for(int i =1; i<Model.NumOfPage+1; i++)
+    {
+    <li class="page-item"><a class="page-link" href="/Loops/@i">@i</a></li>
+    }
+  </ul>
+</nav> 
+
+
+
+</form>
+
+<script src="https://bootstraptema.ru/plugins/2015/audio-touch/audio-touch.js"></script>
+
+ <script>
+ $( function()
+ {
+ $( 'audio' ).audioPlayer();
+ });
+ </script>
+
+<script>
+var a=document.getElementsByTagName("audio");
+ 
+function other_pause(b){
+    for(i=0;i<a.length;i++){
+        if(!(i==b)){a[i].pause()};
+    }
+}
+</script>

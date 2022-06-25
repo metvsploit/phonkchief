@@ -1,0 +1,46 @@
+﻿@model PhonkChief.Domain.Entities.User;
+
+<div class="row">
+    <div class="col col-sm-4">
+        <div class="card text-white bg-dark" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-dark"> <img width="60px" height="60px"  src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Avatar))" /></li>
+                <li class="list-group-item bg-dark">Дата регистрации:@Model.DateOfReg</li>
+                <li class="list-group-item bg-dark">@Model.Email</li>
+            </ul>
+            <div class="card-footer">@Model.NickName</div>
+ 
+        </div>
+    </div>
+</div>
+<br />
+
+@if(Model.Loops.Count > 0)
+{
+    @foreach(var item in Model.Loops)
+    {
+        <div class="card text-white bg-dark mb-3" style="max-width: 27rem;">
+             <div class="card-header">  
+                 <a href="/Profile/@Model.NickName">@Model.NickName</a> 
+                 <a style="float:right" href="data:audio/wav;base64,@(Convert.ToBase64String(item.File))"  download="-@item.Name-.wav"
+         class="page-link">Скачать</a>
+             </div>
+             <div class="card-body">
+                 <h5 class="card-title">@item.Name</h5>
+                 <div class="container"><div class="row">
+                     <div class="col-lg-6 col-lg-offset-3">
+                         <audio preload="auto" controls controlsList="nodownload">
+                             <source src="data:audio/wav;base64,@(Convert.ToBase64String(item.File))"  />
+                         </audio>
+                     </div>
+                 </div>
+                 </div>
+             </div>
+             <div class="card-footer">
+                 <p>Категория: @item.Category </p>
+                 <p>BPM: @item.Bpm</p>
+                 <p>Дата загрузки: @item.Date</p>
+             </div>
+         </div>
+     }
+}

@@ -1,0 +1,56 @@
+﻿@{
+bool isAuthorize = Context.Request.Cookies.TryGetValue("Bearer", out string value);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     @RenderSection("Header",false) 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PhonkChief.WebUI</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/audio-touch/audio-touch.css" />
+</head>
+  <body>
+      <div class="site-wrapper">
+          <div class="site-wrapper-inner">
+              <div class="container">
+                   <div class="masthead clearfix">
+                       <div class="inner">
+                           <h3 class="masthead-brand"><img width="55px" src="~/brand.png" />PhonkChief</h3>
+                           <nav class="nav nav-masthead">
+                               <a class="nav-link active" rel="nofollow" href="/Loops/1" target="_blank">Loops</a>
+                                @if (!isAuthorize)
+                                {
+                                <a class="nav-link" href="/Account/Login">Sign In</a>
+                                }
+                                @if (isAuthorize)
+                                {
+                                <a class="nav-link" href="/Account/MyProfile">Профиль</a>
+                                <a class="nav-link" href="/Account/Logout">Выход</a>
+                                }   
+                           </nav>
+                       </div>
+                   </div>
+
+          <div class="inner cover">
+            <main role="main" class="pb-3">
+            @RenderBody()
+             </main>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+     @RenderSection("Scripts",false) 
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+  </body>
+</html>

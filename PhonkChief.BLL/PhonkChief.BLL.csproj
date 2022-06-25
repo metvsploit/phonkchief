@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PhonkChief.DAL\PhonkChief.DAL.csproj" />
+    <ProjectReference Include="..\PhonkChief.Domain\PhonkChief.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
